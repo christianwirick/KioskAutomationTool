@@ -1,11 +1,12 @@
 # Customer Data to Kiosk Code Converter
 
 ## Overview
-This Python-based tool automates the process of converting customer data from Excel files into machine-readable codes for kiosks. It features a user-friendly GUI for easy interaction, dynamic data processing, and flexible export options, making it ideal for streamlining MGT processes in customer data management.
+This Python-based ETL tool automates the process of extracting data from Excel files, transforming it into machine-readable kiosk codes, and loading the processed data back into structured Excel outputs. Featuring a user-friendly GUI for easy interaction and dynamic data handling, this tool is ideal for streamlining MGT processes in customer data management.
 
 ## Key Features
-- **GUI for Easy Interaction**: Utilizes `tkinter` for a graphical user interface, allowing users to seamlessly select files and choose export options.
-- **Advanced Data Processing**: Employs `openpyxl` to manipulate Excel files, adding new columns and transforming data based on predefined criteria.
+- **ETL Capabilities**: Extracts data from source Excel files, applies complex transformations including custom lookups and data segmentation, and loads the processed data into new, organized Excel files.
+- **GUI for Easy Interaction**: Utilizes `tkinter` to provide a graphical user interface, allowing users to seamlessly select files and choose export options.
+- **Advanced Data Processing**: Uses `openpyxl` to manipulate Excel files, adding new columns and transforming data based on predefined criteria.
 - **Flexible Export Options**: Offers the user the choice to export processed data into a single file or multiple segmented files based on specific attributes.
 
 ## Prerequisites
@@ -16,9 +17,9 @@ Before you can run this script, ensure the following prerequisites are met:
   - `tkinter` for the GUI (usually included with Python).
 
 You can install `openpyxl` using pip:
-```bash
+
 ## Installation
-- **Obtain the Script: **Download the Python script from the provided link or the shared location.
+- **Obtain the Script:** Download the Python script from the provided link or the shared location.
 - **Save the Script:** Ensure the script is saved in a known directory on your computer, avoiding cloud-synced folders to prevent sync issues.
 ## Usage
 To run the script, navigate to the directory where the script is saved and execute the following command in the command prompt or terminal:
@@ -34,16 +35,16 @@ Follow the on-screen prompts to:
 
 ## Script Functionality
 **Components**
-- ExcelProcessor Class: Manages the loading, processing, and exporting of Excel workbooks.
-- load_workbooks(): Loads the main and lookup Excel files.
-- process_data(): Inserts columns, processes data by extracting and transforming specified columns, and organizes data into segments.
-- export_data(): Exports data based on the user's choice of format.
+- **ExcelProcessor Class:** Manages the loading, processing, and exporting of Excel workbooks.
+- **load_workbooks():** Loads the main and lookup Excel files.
+- **process_data():** Inserts columns, processes data by extracting and transforming specified columns, and organizes data into segments.
+- **export_data():** Exports data based on the user's choice of format.
 
 **Utility Functions:**
 - **select_excel_file():** Opens a file dialog for file selection.
 **Detailed Workflow**
-- **Initialize Processor: **Initializes with paths to two Excel files.
-- **Load Workbooks: **Reads the Excel files.
+- **Initialize Processor:** Initializes with paths to two Excel files.
+- **Load Workbooks:** Reads the Excel files.
 - **Prepare Data:** Prepares lookup data from the lookup workbook.
 - **Process Data:** Processes data based on predefined rules and organizes by segment.
 - **Export Data:** Provides options for data export, either consolidated or segmented.
