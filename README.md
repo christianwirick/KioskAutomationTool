@@ -17,46 +17,37 @@ Before you can run this script, ensure the following prerequisites are met:
 
 You can install `openpyxl` using pip:
 ```bash
-pip install openpyxl
-
-**Installation**
-
-Obtain the Script: Download the Python script from the provided link or the shared location.
-Save the Script: Ensure the script is saved in a known directory on your computer, avoiding cloud-synced folders to prevent sync issues.
-
-**Usage**
-
+## Installation
+- **Obtain the Script: **Download the Python script from the provided link or the shared location.
+- **Save the Script:** Ensure the script is saved in a known directory on your computer, avoiding cloud-synced folders to prevent sync issues.
+## Usage
 To run the script, navigate to the directory where the script is saved and execute the following command in the command prompt or terminal:
 
-bash
-Copy code
-python MGT.py
+**bash**
+- Copy code
+- python MGT.py
+
 Follow the on-screen prompts to:
+- Select the master Excel file.
+- Select the MGT Prefix Codes Excel file.
+- Choose the export option ('ALL' for a single file or 'BY SEGMENT' for separate files).
 
-Select the master Excel file.
-Select the MGT Prefix Codes Excel file.
-Choose the export option ('ALL' for a single file or 'BY SEGMENT' for separate files).
-Script Functionality
-
+## Script Functionality
 **Components**
-ExcelProcessor Class: Manages the loading, processing, and exporting of Excel workbooks.
-load_workbooks(): Loads the main and lookup Excel files.
-process_data(): Inserts columns, processes data by extracting and transforming specified columns, and organizes data into segments.
-export_data(): Exports data based on the user's choice of format.
-Utility Functions:
-select_excel_file(): Opens a file dialog for file selection.
-Detailed Workflow
-Initialize Processor: Initializes with paths to two Excel files.
-Load Workbooks: Reads the Excel files.
-Prepare Data: Prepares lookup data from the lookup workbook.
-Process Data: Processes data based on predefined rules and organizes by segment.
-Export Data: Provides options for data export, either consolidated or segmented.
-Notes
+- ExcelProcessor Class: Manages the loading, processing, and exporting of Excel workbooks.
+- load_workbooks(): Loads the main and lookup Excel files.
+- process_data(): Inserts columns, processes data by extracting and transforming specified columns, and organizes data into segments.
+- export_data(): Exports data based on the user's choice of format.
 
+**Utility Functions:**
+- **select_excel_file():** Opens a file dialog for file selection.
+**Detailed Workflow**
+- **Initialize Processor: **Initializes with paths to two Excel files.
+- **Load Workbooks: **Reads the Excel files.
+- **Prepare Data:** Prepares lookup data from the lookup workbook.
+- **Process Data:** Processes data based on predefined rules and organizes by segment.
+- **Export Data:** Provides options for data export, either consolidated or segmented.
+
+Notes
 Ensure that the Python version is compatible (3.x recommended).
 The script is designed to work across Windows, macOS, and Linux operating systems.
-Feedback and Contributions
-
-Feedback and contributions are highly welcome. Please feel free to fork the repository, submit pull requests, or send us your feedback and suggestions.
-
-Looking forward to improving this tool with your invaluable input!
