@@ -1,54 +1,87 @@
 # Customer Data to Kiosk Code Converter
 
 ## Overview
-This Python-based ETL tool automates the process of extracting data from Excel files, transforming it into machine-readable kiosk codes, and loading the processed data back into structured Excel outputs. Featuring a user-friendly GUI for easy interaction and dynamic data handling, this tool is ideal for streamlining MGT processes in customer data management.
 
-## Key Features
-- **ETL Capabilities**: Extracts data from source Excel files, applies complex transformations including custom lookups and data segmentation, and loads the processed data into new, organized Excel files.
-- **GUI for Easy Interaction**: Utilizes `tkinter` to provide a graphical user interface, allowing users to seamlessly select files and choose export options.
-- **Advanced Data Processing**: Uses `openpyxl` to manipulate Excel files, adding new columns and transforming data based on predefined criteria.
-- **Flexible Export Options**: Offers the user the choice to export processed data into a single file or multiple segmented files based on specific attributes.
+This Python ETL tool reads a main Excel workbook, applies MGT prefix lookups from a second workbook, generates kiosk codes, and exports the results to Excel.
 
-## Prerequisites
-Before you can run this script, ensure the following prerequisites are met:
-- **Python Installation**: Python 3.x must be installed on your system. Download it from [python.org](https://python.org) and make sure to add Python to your PATH.
-- **Required Libraries**:
-  - `openpyxl` for handling Excel files.
-  - `tkinter` for the GUI (usually included with Python).
+The app uses a simple `tkinter` GUI so users can select input files and choose an export mode without editing code.
 
-You can install `openpyxl` using pip:
+## Features
 
-## Installation
-- **Obtain the Script:** Download the Python script from the provided link or the shared location.
-- **Save the Script:** Ensure the script is saved in a known directory on your computer, avoiding cloud-synced folders to prevent sync issues.
+- Reads two workbooks:
+  - Main source workbook
+  - MGT Prefix Codes lookup workbook
+- Builds a prefix lookup dictionary from the lookup workbook.
+- Inserts and fills derived columns in the main worksheet:
+  - `D`: first 2 characters from column `C`
+  - `E`: lookup result based on `D`
+  - `F`: last 9 characters from column `C`
+  - `G`: concatenation of `E` + `F`
+- Collects generated values by segment (`H` column).
+- Supports two export modes:
+  - `ALL`: one consolidated output file
+  - `BY SEGMENT`: one output file per segment
+- Formats exported values as whole numbers (`number_format = "0"`).
+
+## Requirements
+
+- Python 3.x
+- `openpyxl`
+- `tkinter` (included with most Python installations)
+
+Install dependency:
+
+```bash
+pip install openpyxl
+```
+
 ## Usage
-To run the script, navigate to the directory where the script is saved and execute the following command in the command prompt or terminal:
 
-**bash**
-- Copy code
-- python MGT.py
+From the project directory, run:
 
-Follow the on-screen prompts to:
-- Select the master Excel file.
-- Select the MGT Prefix Codes Excel file.
-- Choose the export option ('ALL' for a single file or 'BY SEGMENT' for separate files).
+```bash
+python MGT.py
+```
 
-## Script Functionality
-**Components**
-- **ExcelProcessor Class:** Manages the loading, processing, and exporting of Excel workbooks.
-- **load_workbooks():** Loads the main and lookup Excel files.
-- **process_data():** Inserts columns, processes data by extracting and transforming specified columns, and organizes data into segments.
-- **export_data():** Exports data based on the user's choice of format.
+Then follow the prompts:
 
-**Utility Functions:**
-- **select_excel_file():** Opens a file dialog for file selection.
-**Detailed Workflow**
-- **Initialize Processor:** Initializes with paths to two Excel files.
-- **Load Workbooks:** Reads the Excel files.
-- **Prepare Data:** Prepares lookup data from the lookup workbook.
-- **Process Data:** Processes data based on predefined rules and organizes by segment.
-- **Export Data:** Provides options for data export, either consolidated or segmented.
+1. Select the main Excel file.
+2. Select the MGT Prefix Codes Excel file.
+3. Enter export mode:
+   - `ALL`
+   - `BY SEGMENT`
 
-Notes
-Ensure that the Python version is compatible (3.x recommended).
-The script is designed to work across Windows, macOS, and Linux operating systems.
+## Processing Flow
+
+1. `load_workbooks()` loads both Excel files.
+2. `prepare_lookup_data()` reads lookup sheet rows (starting at row 2) into a `{prefix: value}` mapping.
+3. `process_data()` inserts columns `D:G` and derives new values from column `C`.
+4. Generated code values are grouped by segment from column `H`.
+5. `export_data()` routes to either:
+   - `export_all_data()`
+   - `export_by_segment()`
+
+## Outputs
+
+- Output folder: `MGT/` (created automatically)
+
+`ALL` mode:
+
+- `MGT/All_Data.xlsx`
+
+`BY SEGMENT` mode:
+
+- `MGT/<segment>.xlsx` for each segment
+
+Each output file writes codes to column `A` as integer values with Excel integer display formatting.
+
+## Notes
+
+- Blank values in column `C` are handled safely as empty strings.
+- Export conversion uses `int(float(value))` to support numeric-like strings.
+- Canceling export selection skips export.
+- Errors are printed and re-raised in each major stage (load, lookup prep, processing, export).
+
+## Platform Support
+
+Compatible with Windows, macOS, and Linux (where `tkinter` is available).
